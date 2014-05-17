@@ -25,6 +25,18 @@
       document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
     </script>
 
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30899017-1']);
+      _gaq.push(['_setDomainName', 'hakutaku.me']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
     <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
     <![endif]-->
@@ -79,11 +91,18 @@
           <h2>Default methods example</h2>
           <pre><code data-trim>
 public interface Sized {
-  public default boolean isEmpty() {
+  default boolean isEmpty() {
     return size() == 0;
   }
-  public int size();
+  int size();
 }</code></pre>
+        </section>
+
+        <section>
+          <h2>Return the power to interfaces</h2>
+          <p>Finally! Define static methods <b>right</b> in the interfaces.</p>
+          <p>How that makes you feel, huh?</p>
+          <p>Remove your Collections, Arrays, Paths now.</p>
         </section>
 
         <section>
