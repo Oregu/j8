@@ -80,8 +80,10 @@
         <section>
           <h2>Default methods</h2>
           <ul>
-            <li>Poor man's Mixins</li>
-            <li class="fragment">Less abstract classes</li>
+            <li class="fragment">Poor man's Mixins</li>
+            <li class="fragment">Multiple inheritance!</li>
+            <li class="fragment">(With ambiguity resolving mechanism!)</li>
+            <li class="fragment">Reduce abstract classes</li>
             <li class="fragment">Utility methods</li>
             <li class="fragment">“Adding a method to an interface is <strike>not</strike> now a source-compatible change”</li>
           </ul>
@@ -89,24 +91,63 @@
 
         <section>
           <h2>Default methods example</h2>
-          <pre><code data-trim>
+            <pre><code data-trim>
 public interface Sized {
   default boolean isEmpty() {
     return size() == 0;
   }
   int size();
-}</code></pre>
+}
+</code></pre>
+
+        <h2>à-la Mixins example</h2>
+          <pre><code data-trim>
+class VeryFastCar extends ACar implements IFastCar, IFastSteerCar {}
+class VerySlowCar extends ACar implements ISlowCar, ISlowSteerCar {}
+
+// Even better would be (you can in Scala)
+ICar car = new ACar() implements ISlowCar, IFastSteerCar;
+</code></pre>
         </section>
 
         <section>
           <h2>Return the power to interfaces</h2>
-          <p>Finally! Define static methods <b>right</b> in the interfaces.</p>
-          <p>How that makes you feel, huh?</p>
-          <p>Remove your Collections, Arrays, Paths now.</p>
+          <p style="text-align:left;">Finally! Define static methods <b>right</b> in the interfaces.</p>
+          <p style="text-align:left;">How that makes you feel, huh?</p>
+          <p style="text-align:left;">Remove your Collections, Arrays, Paths now.</p>
         </section>
 
         <section>
           <h2>Collection goodies</h2>
+          <h3>Maps:</h3>
+          <ul>
+            <li>getOrDefault(K, V) \m/</li>
+            <li>putIfAbsent(K, V)</li>
+            <li>replace(K,        V new)</li>
+            <li>replace(K, V old, V new)</li>
+            <li>merge()*</li>
+            <li>computeIfPresent()*</li>
+            <li>computeIfAbsent()*</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Collection goodies</h2>
+          <p style="text-align:left;">Set and List didn't change interface much, but let's lookup Collection and Iterable.</p>
+          <ul>
+            <li>spliterator() *</li>
+            <li>removeIf(predicate *)</li>
+            <li>stream() *</li>
+            <li>parallelStream() *</li>
+            <li>(Iterable).forEach(consumer *)</li>
+          </ul>
+          <p style="text-align:left;">* We'll get to them in a moment.</p>
+        </section>
+
+        <section>
+          <h2>Date/time goodies</h2>
+          <p>Since mutability is evil, we replaced java.util.Date class with a bunch of immutable java.time.* classes!</p>
+          <p>“All the classes are immutable and thread-safe.”</p>
         </section>
 
         <section>
@@ -121,21 +162,31 @@ Lst.processStringLst(List.&lt;String&gt;empty());</code></pre>
 
           <h4>But still</h4>
           <pre><code data-trim>String s = Lst.&lt;String&gt;singleton().head();</code></pre>
+
+          <p>Meh…</p>
         </section>
 
         <section>
           <h2>Type inference</h2>
-          <p>More on this in lambda slides!</p>
+          <p>More we'll see in lambda slides</p>
         </section>
 
         <section>
-          <h2>Lambdas/Closures</h2>
+          <h2>Lambda slides</h2>
+          <h3>() → ­{}</h3>
+        </section>
+
+        <section>
+          <h2>() → ­{}</h2>
           <ul>
             <li>Project Lambda (JSR #335) started in November 2010</li>
-            A lambda expression is not syntactic sugar for an anonymous inner class.
-            Lambda expressions are semantically different from inner classes, and they are implemented differently from inner classes.
-            http://programmers.stackexchange.com/questions/177879/type-inference-in-java-8
           </ul>
+        </section>
+
+        <section>
+          <h1>But, Oleg, wait!</h1>
+          <p style="text-align:left;">— You said this is Hipster slides, but you didn't even mentioned a monad!</p>
+          <p style="text-align:left;">— Yeah, sorry guys.<br/>No monads until we'll have Higher Kinded Polymorphism in Java!</p>
         </section>
 
         <section>
