@@ -12,6 +12,7 @@ Lambdas - http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.h
   higher order functions*
   interfaces
   @FunctionalInterface annotation
+  Reduce boilerplate example
   NO CURRYING???
   NO LOT STUFF
 
