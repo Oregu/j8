@@ -61,7 +61,9 @@
           <h2>Java 8</h2>
           <p>
             03/18/2014</br>
-            Last update: 5
+            Last update: 5<br/><br/>
+            Unofficial tagline:
+            <h3 class="fragment">You can be Hipster too.</h3>
           </p>
         </section>
 
@@ -80,6 +82,7 @@
         <section>
           <h2>Default methods</h2>
           <ul>
+            <li class="fragment">Known as Defender Methods</li>
             <li class="fragment">Poor man's Mixins</li>
             <li class="fragment">Multiple inheritance!</li>
             <li class="fragment">(With ambiguity resolving mechanism!)</li>
@@ -98,7 +101,7 @@ public interface Sized {
   }
   int size();
 }
-</code></pre>
+            </code></pre>
 
         <h2>à-la Mixins example</h2>
           <pre><code data-trim>
@@ -107,7 +110,7 @@ class VerySlowCar extends ACar implements ISlowCar, ISlowSteerCar {}
 
 // Even better would be (you can in Scala)
 ICar car = new ACar() implements ISlowCar, IFastSteerCar;
-</code></pre>
+          </code></pre>
         </section>
 
         <section>
@@ -179,7 +182,105 @@ Lst.processStringLst(List.&lt;String&gt;empty());</code></pre>
         <section>
           <h2>() → ­{}</h2>
           <ul>
-            <li>Project Lambda (JSR #335) started in November 2010</li>
+            <li>Project Lambda (JSR #335)</li>
+            <li>Initiated in December 2009 as Straw-Man proposal</li>
+            <li>Loooong awaited</li>
+            <li>Full class support</li>
+            <li>Not a syntactic sugar for an anonymous inner class</li>
+            <li>Even though it can appear so.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Without () → ­{}</h2>
+          <pre><code data-trim>
+List&lt;String&gt; names = new ArrayList&lt;String&gt;();
+for (int i = 0; i &lt; fields.size(); i++) {
+  Field fld = fields.get(i);
+  names.add(fld.getName());
+}
+for (int i = 0; i &lt; names.size(); i++) {
+  String name = names.get(i);
+  System.out.println(name);
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>() → ­{}</h2>
+          <pre><code data-trim>
+names = fields.stream().map(Field::getName).collect(toList());
+names.forEach(System.out::println);
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>() → ­{}</h2>
+          <pre><code data-trim>names.map((String s) -&gt; { return s.length(); });</code></pre>
+          <p class="fragment">We know it's a collection of strings!</p>
+          <pre class="fragment"><code data-trim>names.map((s) -&gt; s.length());</code></pre>
+          <p class="fragment">That's not a LISP! Who likes parentheses anyway?</p>
+          <pre class="fragment"><code data-trim>names.map(s -&gt; s.length());</code></pre>
+          <p class="fragment">Can I have a method reference, please?</p>
+          <pre class="fragment"><code data-trim>names.map(String::length);</code></pre>
+          <p class="fragment">Thank you, Java 8.</p>
+        </section>
+
+        <section>
+          <h2>More () → {} examples</h2>
+          <pre><code data-trim>
+// Group employees by department
+Map&lt;Department, List&lt;Employee&gt;&gt; byDept
+    = employees.stream().collect(groupingBy(Employee::getDepartment));
+          </code></pre>
+          <pre><code data-trim>
+// Partition students into passing and failing
+Map&lt;Boolean, List&lt;Student&gt;&gt; passingFailing
+  = students.stream().collect(partitioningBy(
+                                s -&gt; s.getGrade() &gt;= PASS_THRESHOLD));
+          </code></pre>
+          <pre><code data-trim>
+// Classify people by state and city
+Map&lt;String, Map&lt;String, List&lt;Person&gt;&gt;&gt; peopleByStateAndCity
+  = personStream.collect(groupingBy(Person::getState,
+                                    groupingBy(Person::getCity)))
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Functional interfaces</h2>
+          <pre><code data-trim>
+@FunctionalInterface
+public interface Function&lt;T, R&gt; {
+  R apply(T t);
+}
+          </code></pre>
+          <pre><code data-trim>
+Function&lt;String, Integer&gt; f = String::length;
+Function g = f.andThen(Integer::reverse);
+          </code></pre>
+
+          <pre><code data-trim>
+Function&lt;String, Integer&gt; f = String::length;
+Function&lt;Integer, Float&gt; g = Integer::floatValue;
+Function h = g.compose(f);
+          </code></pre>
+
+          <pre><code data-trim>
+Function id = Function.identity();
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>java.util.function.*</h2>
+          <ul>
+            <li>Function&lt;T, R&gt;</li>
+            <li>BiFunction&lt;T, U, R&gt;</li>
+            <li>Predicate&lt;T&gt;</li>
+            <li>Supplier&lt;T&gt;</li>
+            <li>Consumer&lt;T&gt;</li>
+            <li>BiConsumer&lt;T, U&gt;</li>
+            <li>UnaryOperator&lt;T&gt; : Function&lt;T, T&gt;</li></li>
           </ul>
         </section>
 
@@ -195,14 +296,12 @@ Lst.processStringLst(List.&lt;String&gt;empty());</code></pre>
         </section>
 
       </div>
-
     </div>
 
     <script src="lib/js/head.min.js"></script>
     <script src="js/reveal.min.js"></script>
 
     <script>
-
       // Full list of configuration options available here:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
@@ -228,7 +327,6 @@ Lst.processStringLst(List.&lt;String&gt;empty());</code></pre>
           { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
         ]
       });
-
     </script>
 
   </body>

@@ -6,22 +6,21 @@ Default methods
   Using lambdas to write mixins in java 8
 
 Lambdas - http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html
-  types
-  parens
-  type inferring
   higher order functions*
-  interfaces
-  @FunctionalInterface annotation
-  Reduce boilerplate example
   NO CURRYING???
-  NO LOT STUFF
+  NO LOTTA STUFF
+
+Functional interfaces
+  Comsumers and Supplier
+    java.util.function.*
+  Function class
+    compose
+    check other
 
 CHECK BYTECODE!
 A lambda expression is not syntactic sugar for an anonymous inner class.
 Lambda expressions are semantically different from inner classes, and they are implemented differently from inner classes.
 http://programmers.stackexchange.com/questions/177879/type-inference-in-java-8
-
-No PermGen
 
 Streams API
   Lazy!
@@ -35,12 +34,7 @@ Streams API
 
 Parallel
 
-Comsumers and Supplier
-  java.util.function
-
-Function class
-  compose
-  check other
+No PermGen
 
 DSLs
   ktoso/lambda-spec
