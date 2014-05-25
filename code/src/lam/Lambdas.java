@@ -80,6 +80,7 @@ public class Lambdas {
         Map<Integer, List<String>> lns = names.parallelStream().collect(groupingBy(String::length));
         lns.forEach((key, ns) -> out.println(key + ":\t" + ns.stream().collect(joining(", "))));
 
+        // Collection in collection
 //        names = fieldmap.values().stream().reduce((l, fs) -> {l.addAll(fs.stream().map(Field::getName).collect(toList())); return l;});
 //        names.forEach(System.out::println);
     }

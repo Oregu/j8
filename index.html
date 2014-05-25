@@ -233,6 +233,7 @@ names.forEach(System.out::println);
           <p>Field::create</p>
           <p>Field::new</p>
           <p>this::processField</p>
+          <p>a::process (a is some object in scope)</p>
         </section>
 
         <section>
@@ -359,16 +360,58 @@ lns.forEach((key, ns) -> out.println(key + ":\t" +
         </section>
 
         <section>
+          <h2>Is there result?</h2>
+          <p><code>findAny()</code> returns special container object <code>Optional</code></p>
+          <ul>
+            <li class="fragment"><code>isPresent, ifPresent(Consumer)</code></li>
+            <li class="fragment"><code>orElse, orElse(Supplier), orElseThrow</code></li>
+            <li class="fragment">Treat like collection: <code>map, flatMap, filter</code></li>
+            <li class="fragment">Create Optional: <code>empty, of(val), ofNullable(val)</code></li>
+          </ul>
+          <br/><br/>
+          <p class="fragment">A convenient way to represent result absence.</p>
+          <p class="fragment">(And reduce <abbr style="border-bottom: dotted 1px;" title="NullPointerException">NPE</abbr> count.)</p>
+        </section>
+
+        <section>
+          <h2>No more PermGen?</h2>
+          <p style="text-align:left">No more PermGen space errors and PermGen tuning.</p>
+          <p style="text-align:left">Java says:<br/>VM warning: ignoring option MaxPermSize=512m;<br/>support was removed in 8.0</p>
+          <blockquote>A goal for removing perm gen was so that users do not have to think about correctly sizing it.</blockquote>
+          <br/>
+          <p style="text-align:left" class="fragment">— But where are my class instances?</p>
+        </section>
+
+        <section>
+          <h1>Metaspace!</h1>
+        </section>
+
+        <section>
+          <h1>Metaspace!</h1>
+          <blockquote>java.lang.OutOfMemoryError: Metadata space</blockquote>
+        </section>
+        <section>
+          <h2>Metaspace</h2>
+          <p>Native memory region for class data.</p>
+          <p>Grow automatically by default.</p>
+          <p>Garbage collected.</p>
+          <p>-XX:MetaspaceSize -XX:MaxMetaspaceSize</p>
+          <p>Transition to Java 8: <code>e/Perm/Metaspace/g</code></p>
+        </section>
+
+        <section>
           <h1>But, Oleg, wait!</h1>
-          <p style="text-align:left;">— You said this is Hipster slides, but you didn't even mentioned a monad!</p>
-          <p style="text-align:left;">— Yeah, sorry guys.<br/>No monads until we'll have Higher Kinded Polymorphism in Java!</p>
+          <p style="text-align:left">— You said this is Hipster slides, but you didn't even mentioned a monad!</p>
+          <p style="text-align:left">— Sorry guys. No monads until we'll have Higher Kinded Polymorphism in Java!</p>
         </section>
 
         <section>
           <h1>THE END</h1>
           <h3>By Oleg Prophet / hakutaku.me</h3>
           <br/>
-          Sources: <a href="https://github.com/Oregu/j8">slides</a>, <a href="https://github.com/Oregu/j8/tree/gh-pages/code/src">Java samples</a>
+          Sources: <a href="https://github.com/Oregu/j8">slides</a>, <a href="https://github.com/Oregu/j8/tree/gh-pages/code/src">java samples</a>
+
+          <p>Thank you!</p>
         </section>
 
       </div>
