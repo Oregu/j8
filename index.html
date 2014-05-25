@@ -227,6 +227,52 @@ names.forEach(System.out::println);
         </section>
 
         <section>
+          <h2>() → ­{}</h2>
+          <h4>Method references</h4>
+          <p>Object::toString</p>
+          <p>Field::create</p>
+          <p>Field::new</p>
+          <p>this::processField</p>
+        </section>
+
+        <section>
+          <h2>Streams</h2>
+          <ul>
+            <li>filter</li>
+            <li>map</li>
+            <li>flatMap</li>
+            <li>distinct</li>
+            <li>sorted</li>
+            <li>limit</li>
+          </ul>
+          <p>These are intermediate operations</p>
+          <p>They are all lazy.</p>
+        </section>
+
+        <section>
+          <h2>Streams</h2>
+          <ul>
+            <li>forEach *</li>
+            <li>forEachOrdered</li>
+            <li>toArray</li>
+            <li>reduce</li>
+            <li>collect *</li>
+            <li>min, max, count, sum</li>
+            <li>(any|all|none)Match</li>
+            <li>findAny *</li>
+          </ul>
+          <p>These are terminal operations</p>
+          <p>They are not lazy at all.</p>
+          <br/>
+          <p style="text-align:left">* Collectors api: toList(), counting(), joining(), etc.</p>
+        </section>
+
+        <section>
+          <h2>Streams</h2>
+          <p>From sequential to parallel in the blink of an eye</p>
+        </section>
+
+        <section>
           <h2>More () → {} examples</h2>
           <pre><code data-trim>
 // Group employees by department
@@ -261,13 +307,21 @@ Function g = f.andThen(Integer::reverse);
           </code></pre>
 
           <pre><code data-trim>
+Function id = Function.identity();
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Compose like a Pro</h2>
+          <p>Function composition</p>
+          <p>f : X → Y</p>
+          <p>g : Y → Z</p>
+          <p>g ∘ f : X → Z</p>
+          <br/>
+          <pre class="fragment"><code data-trim>
 Function&lt;String, Integer&gt; f = String::length;
 Function&lt;Integer, Float&gt; g = Integer::floatValue;
 Function h = g.compose(f);
-          </code></pre>
-
-          <pre><code data-trim>
-Function id = Function.identity();
           </code></pre>
         </section>
 

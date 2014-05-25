@@ -10,27 +10,10 @@ Lambdas - http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.h
   NO CURRYING???
   NO LOTTA STUFF
 
-Functional interfaces
-  Comsumers and Supplier
-    java.util.function.*
-  Function class
-    compose
-    check other
-
 CHECK BYTECODE!
 A lambda expression is not syntactic sugar for an anonymous inner class.
 Lambda expressions are semantically different from inner classes, and they are implemented differently from inner classes.
 http://programmers.stackexchange.com/questions/177879/type-inference-in-java-8
-
-Streams API
-  Lazy!
-  map
-  filter
-  reduce
-  sorted
-  flatMap
-  collect
-  long, double
 
 Parallel
 
