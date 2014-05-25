@@ -236,43 +236,6 @@ names.forEach(System.out::println);
         </section>
 
         <section>
-          <h2>Streams</h2>
-          <ul>
-            <li>filter</li>
-            <li>map</li>
-            <li>flatMap</li>
-            <li>distinct</li>
-            <li>sorted</li>
-            <li>limit</li>
-          </ul>
-          <p>These are intermediate operations</p>
-          <p>They are all lazy.</p>
-        </section>
-
-        <section>
-          <h2>Streams</h2>
-          <ul>
-            <li>forEach *</li>
-            <li>forEachOrdered</li>
-            <li>toArray</li>
-            <li>reduce</li>
-            <li>collect *</li>
-            <li>min, max, count, sum</li>
-            <li>(any|all|none)Match</li>
-            <li>findAny *</li>
-          </ul>
-          <p>These are terminal operations</p>
-          <p>They are not lazy at all.</p>
-          <br/>
-          <p style="text-align:left">* Collectors api: toList(), counting(), joining(), etc.</p>
-        </section>
-
-        <section>
-          <h2>Streams</h2>
-          <p>From sequential to parallel in the blink of an eye</p>
-        </section>
-
-        <section>
           <h2>More () → {} examples</h2>
           <pre><code data-trim>
 // Group employees by department
@@ -336,6 +299,50 @@ Function h = g.compose(f);
             <li>BiConsumer&lt;T, U&gt;</li>
             <li>UnaryOperator&lt;T&gt; : Function&lt;T, T&gt;</li></li>
           </ul>
+        </section>
+
+        <section>
+          <h2>Streams</h2>
+          <ul>
+            <li>filter</li>
+            <li>map</li>
+            <li>flatMap</li>
+            <li>distinct</li>
+            <li>sorted</li>
+            <li>limit</li>
+          </ul>
+          <p>These are intermediate operations</p>
+          <p>They are all lazy.</p>
+        </section>
+
+        <section>
+          <h2>Streams</h2>
+          <ul>
+            <li>forEach *</li>
+            <li>forEachOrdered</li>
+            <li>toArray</li>
+            <li>reduce</li>
+            <li>collect *</li>
+            <li>min, max, count, sum</li>
+            <li>(any|all|none)Match</li>
+            <li>findAny *</li>
+          </ul>
+          <p>These are terminal operations</p>
+          <p>They are not lazy at all.</p>
+          <p>No element will be produced until you call one of these.</p>
+          <br/>
+          <p style="text-align:left">* Collectors api: toList(), counting(), joining(), etc.</p>
+        </section>
+
+        <section>
+          <h2>Parallel streams</h2>
+          <p>From sequential to parallel in the blink of an eye</p>
+          <br/>
+          <pre><code data-trim>
+lns = names.parallelStream().collect(groupingBy(String::length));
+lns.forEach((key, ns) -> out.println(key + ":\t" +
+                                      ns.stream().collect(joining(", "))));
+          </code></pre>
         </section>
 
         <section>

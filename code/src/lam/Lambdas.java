@@ -6,7 +6,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.lang.System.out;
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 public class Lambdas {
@@ -17,7 +19,8 @@ public class Lambdas {
     private static void init() {
         fields = Arrays.asList(new Field("f_string", true),
                                new Field("f_int", false),
-                               new Field("f_vari", true));
+                               new Field("f_vari", true),
+                               new Field("f_abc", false));
 
         fieldmap = new HashMap<>();
         fieldmap.put("f1", Arrays.asList(new Field("f_str", true)));
@@ -34,11 +37,11 @@ public class Lambdas {
         }
         for (int i = 0; i < names.size(); i++) {
             String name = names.get(i);
-            System.out.println(name);
+            out.println(name);
         }
 
         names = fields.stream().map(Field::getName).collect(toList());
-        names.forEach(System.out::println);
+        names.forEach(out::println);
 
         names.stream().map((String s) -> { return s.length(); });
         names.stream().map((s) -> s.length());
@@ -51,7 +54,7 @@ public class Lambdas {
 
         Function<String, Integer> ln = String::length;
         Function<String, Integer> revln = ln.andThen(Integer::reverse);
-        names.stream().map(revln).forEach(System.out::println);
+        names.stream().map(revln).forEach(out::println);
 
         Function<String, Integer> f = String::length;
         Function<Integer, Float> g = Integer::floatValue;
@@ -60,7 +63,7 @@ public class Lambdas {
         Function id = Function.identity();
 
         Map<Integer, List<String>> lenghts = names.parallelStream().collect(groupingBy(String::length));
-        lenghts.forEach((key, val) -> System.out.println(key + ":\t" + val.size()));
+        lenghts.forEach((key, ns) -> out.println(key + ":\t" + ns.stream().collect(joining(", "))));
 
 //        names = fieldmap.values().stream().reduce((l, fs) -> {l.addAll(fs.stream().map(Field::getName).collect(toList())); return l;});
 //        names.forEach(System.out::println);
