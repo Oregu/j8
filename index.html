@@ -289,6 +289,19 @@ Function h = g.compose(f);
         </section>
 
         <section>
+          <h2>Curry like a Pro</h2>
+          <pre><code data-trim>
+Function&lt;String, UnaryOperator&lt;String&gt;&gt; curried =
+                          s1 -> s2 -> s1.concat(" ").concat(s2);
+
+UnaryOperator&lt;String&gt; hask = curried.apply("Haskell");
+
+out.println(hask.apply("Curry"));
+out.println(hask.apply("Wexler"));
+          </code></pre>
+        </section>
+
+        <section>
           <h2>java.util.function.*</h2>
           <ul>
             <li>Function&lt;T, R&gt;</li>
@@ -354,6 +367,8 @@ lns.forEach((key, ns) -> out.println(key + ":\t" +
         <section>
           <h1>THE END</h1>
           <h3>By Oleg Prophet / hakutaku.me</h3>
+          <br/>
+          Sources: <a href="https://github.com/Oregu/j8">slides</a>, <a href="https://github.com/Oregu/j8/tree/gh-pages/code/src">Java samples</a>
         </section>
 
       </div>

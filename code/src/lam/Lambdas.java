@@ -1,8 +1,7 @@
 package lam;
 
 import java.util.*;
-import java.util.function.BiFunction;
-import java.util.function.Function;
+import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,6 +29,7 @@ public class Lambdas {
     public static void main(String [] args) {
         init();
 
+        // Reduce boilerplate
         List<String> names = new ArrayList<String>();
         for (int i = 0; i < fields.size(); i++) {
             Field fld = fields.get(i);
@@ -43,6 +43,7 @@ public class Lambdas {
         names = fields.stream().map(Field::getName).collect(toList());
         names.forEach(out::println);
 
+        // Lambda syntax
         names.stream().map((String s) -> { return s.length(); });
         names.stream().map((s) -> s.length());
         names.stream().map(s -> s.length());
@@ -52,18 +53,32 @@ public class Lambdas {
         names.stream().map(Field::new);
         names.stream().map(Object::toString);
 
+        // Functional interface
         Function<String, Integer> ln = String::length;
         Function<String, Integer> revln = ln.andThen(Integer::reverse);
         names.stream().map(revln).forEach(out::println);
 
+        // Composition
         Function<String, Integer> f = String::length;
         Function<Integer, Float> g = Integer::floatValue;
         Function h = g.compose(f);
 
         Function id = Function.identity();
 
-        Map<Integer, List<String>> lenghts = names.parallelStream().collect(groupingBy(String::length));
-        lenghts.forEach((key, ns) -> out.println(key + ":\t" + ns.stream().collect(joining(", "))));
+        // Curry
+        IntFunction<IntUnaryOperator> sum = a -> b -> a + b;
+        IntUnaryOperator add6 = sum.apply(6);
+        out.println(add6.applyAsInt(10));
+        out.println(add6.applyAsInt(11));
+
+        Function<String, UnaryOperator<String>> curried = s1 -> s2 -> s1.concat(" ").concat(s2);
+        UnaryOperator<String> hask = curried.apply("Haskell");
+        out.println(hask.apply("Curry"));
+        out.println(hask.apply("Wexler"));
+
+        // Parallel
+        Map<Integer, List<String>> lns = names.parallelStream().collect(groupingBy(String::length));
+        lns.forEach((key, ns) -> out.println(key + ":\t" + ns.stream().collect(joining(", "))));
 
 //        names = fieldmap.values().stream().reduce((l, fs) -> {l.addAll(fs.stream().map(Field::getName).collect(toList())); return l;});
 //        names.forEach(System.out::println);
