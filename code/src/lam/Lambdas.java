@@ -15,19 +15,18 @@ public class Lambdas {
     private static List<Field> fields;
     private static Map<String, List<Field>> fieldmap;
 
-    private static void init() {
+    static {
         fields = Arrays.asList(new Field("f_string", true),
                                new Field("f_int", false),
                                new Field("f_vari", true),
                                new Field("f_abc", false));
 
         fieldmap = new HashMap<>();
-        fieldmap.put("f1", Arrays.asList(new Field("f_str", true)));
+        fieldmap.put("f1", Arrays.asList(new Field("f_str", true), new Field("f_abc", true)));
         fieldmap.put("f2", Arrays.asList(new Field("f_int", true)));
     }
 
     public static void main(String [] args) {
-        init();
 
         // Reduce boilerplate
         List<String> names = new ArrayList<String>();
@@ -42,6 +41,14 @@ public class Lambdas {
 
         names = fields.stream().map(Field::getName).collect(toList());
         names.forEach(out::println);
+
+        // Collection in collection
+        names = fieldmap.values().stream().collect(
+                ArrayList<String>::new,
+                (l, fs) -> l.addAll(fs.stream().map(Field::getName).collect(toList())),
+                ArrayList<String>::addAll);
+        out.println("\n2Dcollected:");
+        names.forEach(System.out::println);
 
         // Lambda syntax
         names.stream().map((String s) -> { return s.length(); });
@@ -91,9 +98,5 @@ public class Lambdas {
         // Parallel
         Map<Integer, List<String>> lns = names.parallelStream().collect(groupingBy(String::length));
         lns.forEach((key, ns) -> out.println(key + ":\t" + ns.stream().collect(joining(", "))));
-
-        // Collection in collection
-//        names = fieldmap.values().stream().reduce((l, fs) -> {l.addAll(fs.stream().map(Field::getName).collect(toList())); return l;});
-//        names.forEach(System.out::println);
     }
 }
