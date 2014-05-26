@@ -6,4 +6,3 @@ node_modules/
 .sass-cache
 out/
 .idea
-*.iml

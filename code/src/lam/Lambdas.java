@@ -72,9 +72,21 @@ public class Lambdas {
         out.println(add6.applyAsInt(11));
 
         Function<String, UnaryOperator<String>> curried = s1 -> s2 -> s1.concat(" ").concat(s2);
+
+        // Functional Application
         UnaryOperator<String> hask = curried.apply("Haskell");
         out.println(hask.apply("Curry"));
         out.println(hask.apply("Wexler"));
+
+        // Curry any?
+        BiFunction<String, Integer, Float> bi = (s, i) -> (s.length() + i)/2.0f;
+        // Can't do bi.curry("hello");
+
+        Function <Integer, Float> part = Curry.curry(bi, "hello");
+
+        // Will we be able call fc(7) someday?
+        out.println(part.apply(10));
+        out.println(part.apply(22));
 
         // Parallel
         Map<Integer, List<String>> lns = names.parallelStream().collect(groupingBy(String::length));

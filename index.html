@@ -109,7 +109,7 @@ class VeryFastCar extends ACar implements IFastCar, IFastSteerCar {}
 class VerySlowCar extends ACar implements ISlowCar, ISlowSteerCar {}
 
 // Even better would be (you can in Scala)
-ICar car = new ACar() implements ISlowCar, IFastSteerCar;
+ICar car = new ACar() with ISlowCar, IFastSteerCar;
           </code></pre>
         </section>
 
@@ -290,15 +290,43 @@ Function h = g.compose(f);
         </section>
 
         <section>
-          <h2>Curry like a Pro</h2>
+          <h2>Curry* like a Pro</h2>
           <pre><code data-trim>
 Function&lt;String, UnaryOperator&lt;String&gt;&gt; curried =
                           s1 -> s2 -> s1.concat(" ").concat(s2);
 
+// Partial application
 UnaryOperator&lt;String&gt; hask = curried.apply("Haskell");
 
 out.println(hask.apply("Curry"));
 out.println(hask.apply("Wexler"));
+          </code></pre>
+
+          <p>* Currying is a fancy name for schönfinkeling</p>
+        </section>
+
+        <section>
+          <h2>Curry like a Semi-Pro</h2>
+          <p>Can't curry any function like (a, b) → a + b;</p>
+
+          <p class="fragment">But we have tools:</p>
+          <pre class="fragment"><code data-trim>
+public interface Curry {
+  static &lt;T,U,R&gt; Function&lt;U, R&gt; curry(BiFunction&lt;T, U, R&gt; bi, T t) {
+    return u -&gt; bi.apply(t ,u);
+  }
+}
+          </code></pre>
+
+          <pre class="fragment"><code data-trim>
+BiFunction&lt;String, Integer, Float&gt; bi = (s, i) -&gt; (s.length() + i)/2.0f;
+// Can't do bi.curry("hello") for any bi
+
+Function &lt;Integer, Float&gt; part = Curry.curry(bi, "hello");
+
+// Will we be able call fc(7) someday?
+out.println(part.apply(10));
+out.println(part.apply(22));
           </code></pre>
         </section>
 
@@ -360,7 +388,7 @@ lns.forEach((key, ns) -> out.println(key + ":\t" +
         </section>
 
         <section>
-          <h2>Is there result?</h2>
+          <h2>Failed computation?</h2>
           <p><code>findAny()</code> returns special container object <code>Optional</code></p>
           <ul>
             <li class="fragment"><code>isPresent, ifPresent(Consumer)</code></li>
@@ -390,6 +418,7 @@ lns.forEach((key, ns) -> out.println(key + ":\t" +
           <h1>Metaspace!</h1>
           <blockquote>java.lang.OutOfMemoryError: Metadata space</blockquote>
         </section>
+
         <section>
           <h2>Metaspace</h2>
           <p>Native memory region for class data.</p>
