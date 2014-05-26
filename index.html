@@ -266,6 +266,7 @@ public interface Function&lt;T, R&gt; {
 }
           </code></pre>
           <pre><code data-trim>
+Function&lt;String, String&gt; m = s -> s.toUpperCase();
 Function&lt;String, Integer&gt; f = String::length;
 Function g = f.andThen(Integer::reverse);
           </code></pre>
@@ -322,9 +323,9 @@ public interface Curry {
 BiFunction&lt;String, Integer, Float&gt; bi = (s, i) -&gt; (s.length() + i)/2.0f;
 // Can't do bi.curry("hello") for any bi
 
-Function &lt;Integer, Float&gt; part = Curry.curry(bi, "hello");
+Function&lt;Integer, Float&gt; part = Curry.curry(bi, "hello");
 
-// Will we be able call fc(7) someday?
+// Will we be able call part(10) someday?
 out.println(part.apply(10));
 out.println(part.apply(22));
           </code></pre>
@@ -438,7 +439,7 @@ lns.forEach((key, ns) -> out.println(key + ":\t" +
           <h1>THE END</h1>
           <h3>By Oleg Prophet / hakutaku.me</h3>
           <br/>
-          Sources: <a href="https://github.com/Oregu/j8">slides</a>, <a href="https://github.com/Oregu/j8/tree/gh-pages/code/src">java samples</a>
+          Sources: <a href="https://github.com/Oregu/j8">slides</a>, <a href="https://github.com/Oregu/j8/tree/gh-pages/code">java samples</a>
 
           <p>Thank you!</p>
         </section>
