@@ -1,5 +1,5 @@
 # Java 8 Hipster slides
 
-Java 8 features with reveal.js
-
-(In progress.)
+[Slides](hakutaku.me/j8)  
+With Java 8 you can be a hipster too.  
+Reveal.js as presentation framework.
