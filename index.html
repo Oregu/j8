@@ -128,10 +128,13 @@ ICar car = new ACar() with ISlowCar, IFastSteerCar;
             <li>putIfAbsent(K, V)</li>
             <li>replace(K,        V new)</li>
             <li>replace(K, V old, V new)</li>
-            <li>merge()*</li>
-            <li>computeIfPresent()*</li>
-            <li>computeIfAbsent()*</li>
+            <li>compute(K, BiFunction) *</li>
+            <li>computeIfAbsent(K, Function) *</li>
+            <li>computeIfPresent(K, BiFunction) *</li>
+            <li>merge(T, V, BiFunction) *</li>
           </ul>
+          <br/><br/>
+          <p>Reduce your boilerplate.</p>
         </section>
 
         <section>
@@ -139,11 +142,12 @@ ICar car = new ACar() with ISlowCar, IFastSteerCar;
           <p style="text-align:left;">Set and List didn't change interface much, but let's lookup Collection and Iterable.</p>
           <ul>
             <li>spliterator() *</li>
-            <li>removeIf(predicate *)</li>
+            <li>removeIf(Predicate) *</li>
             <li>stream() *</li>
             <li>parallelStream() *</li>
-            <li>(Iterable).forEach(consumer *)</li>
+            <li>(Iterable).forEach(Consumer) *</li>
           </ul>
+          <br/><br/>
           <p style="text-align:left;">* We'll get to them in a moment.</p>
         </section>
 
@@ -188,6 +192,7 @@ Lst.processStringLst(List.&lt;String&gt;empty());</code></pre>
             <li>Full class support</li>
             <li>Not a syntactic sugar for an anonymous inner class</li>
             <li>Even though it can appear so.</li>
+            <li class="fragment">They are not even objects.</li>
           </ul>
         </section>
 
