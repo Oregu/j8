@@ -323,8 +323,12 @@ out.println(hask.apply("Wexler"));
 
           <p class="fragment">But we have tools:</p>
           <pre class="fragment"><code data-trim>
-public interface Curry {
-  static &lt;T,U,R&gt; Function&lt;U, R&gt; curry(BiFunction&lt;T, U, R&gt; bi, T t) {
+public interface Fn {
+  static &lt;T,U,R&gt; Function&lt;T, Function&lt;U,R&gt;&gt; curry(BiFunction&lt;T,U,R&gt; bi) {
+    return t -&gt; u -&gt; bi.apply(t ,u);
+  }
+
+  static &lt;T,U,R&gt; Function&lt;U,R&gt; partial(BiFunction&lt;T,U,R&gt; bi, T t) {
     return u -&gt; bi.apply(t ,u);
   }
 }
@@ -332,9 +336,10 @@ public interface Curry {
 
           <pre class="fragment"><code data-trim>
 BiFunction&lt;String, Integer, Float&gt; bi = (s, i) -&gt; (s.length() + i)/2.0f;
-// Can't do bi.curry("hello") for any bi
+// Can't do bi.apply("hello") for any bi
 
-Function&lt;Integer, Float&gt; part = Curry.curry(bi, "hello");
+Function&lt;Integer, Float&gt; part = Fn.partial(bi, "hello");
+// Or: Function &lt;Integer, Float&gt; part = Fn.curry(bi).apply("hello");
 
 // Will we be able call part(10) someday?
 out.println(part.apply(10));

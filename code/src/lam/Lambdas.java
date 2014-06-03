@@ -89,7 +89,9 @@ public class Lambdas {
         BiFunction<String, Integer, Float> bi = (s, i) -> (s.length() + i)/2.0f;
         // Can't do bi.curry("hello");
 
-        Function <Integer, Float> part = Curry.curry(bi, "hello");
+        Function <Integer, Float> part = _.partial(bi, "hello");
+        // Or the same:
+        // Function <Integer, Float> part = _.curry(bi).apply("hello");
 
         // Will we be able call fc(7) someday?
         out.println(part.apply(10));
