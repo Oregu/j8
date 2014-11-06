@@ -341,7 +341,7 @@ BiFunction&lt;String, Integer, Float&gt; bi = (s, i) -&gt; (s.length() + i)/2.0f
 Function&lt;Integer, Float&gt; part = Fn.partial(bi, "hello");
 // Or: Function &lt;Integer, Float&gt; part = Fn.curry(bi).apply("hello");
 
-// Will we be able call part(10) someday?
+// Will we be able to call part(10) someday?
 out.println(part.apply(10));
 out.println(part.apply(22));
           </code></pre>
